@@ -54,20 +54,17 @@ The project combines several municipal-level datasets from publicly available so
 
 - Immigrant population share
 - Immigration period composition
-- Recent immigrant indicators
 
 ### Geographic Data
 
 - Ontario municipal boundary shapefiles
 - Municipal identifiers and spatial polygons
 
-Potential data providers include:
+Data Sources:
 
-- Statistics Canada Census Program
-- Ontario Open Data Portal
-- Ontario Ministry of Agriculture, Food and Agribusiness (OMAFA)
-- Municipal boundary datasets
-
+- Statistics Canada 
+- Canada Mortgage and Housing Corporation (CMHC)
+- Ontario GeoHub
 ---
 
 ## Data Preparation Methods
@@ -76,21 +73,39 @@ Potential data providers include:
 
 The following data preparation steps were performed:
 
-- Missing value checking and validation
-- Variable consistency checks
-- Municipal name standardization
-- Duplicate record verification
-- Spatial identifier validation
+### Data Cleaning
+
+Data cleaning and preprocessing were conducted to improve data quality, consistency, and analytical readiness prior to exploratory analysis and modelling.
+
+The following steps were performed:
+
+- Identified and handled missing and null values across all datasets.
+- Filtered records with incomplete or unusable information where appropriate.
+- Selected relevant variables required for analysis and modelling.
+- Renamed fields to improve readability and consistency across datasets.
+- Removed unnecessary characters, numeric codes, and redundant information from selected columns.
+- Standardized text fields and categorical variables.
+- Checked for duplicate records and data inconsistencies.
+- Converted and standardized date fields originating from multiple formats, including:
+  - Year-only formats (e.g., `2022`)
+  - Month-Year formats (e.g., `Jan-2022`)
+  - Character-based month representations (e.g., `January 2022`)
+  - Mixed date formats from different source systems
+- Created a consistent date structure to support time-series analysis and trend visualization.
+- Validated municipality names and geographic identifiers to ensure consistency across datasets.
+- Prepared cleaned datasets for exploratory analysis, feature engineering, predictive modelling, and spatial mapping.
 
 ### Feature Engineering
 
 Additional analytical variables were developed including:
 
 - Housing affordability ratios
-- Housing structure composition shares
-- Household composition percentages
-- Immigration composition shares
-- Age cohort percentages
+- Age proportion
+- houshold size proportion
+- Houshold type proportion
+- Imigrant Proportion
+- Housing Structure Share
+- Estimated Monthly Shelter Cost
 
 ### Spatial Data Preparation
 
@@ -105,7 +120,6 @@ Municipal boundary shapefiles were:
 
 For coefficient comparison and interpretation:
 
-- Predictor variables were standardized using z-score normalization
 - Standardized coefficients were calculated for linear regression analysis
 
 ---
@@ -126,7 +140,6 @@ Random Forest models were developed to:
 
 - Capture nonlinear relationships.
 - Evaluate variable importance.
-- Improve predictive performance.
 
 Model settings:
 
@@ -138,14 +151,12 @@ Model settings:
 Gradient Boosting models were used to:
 
 - Model complex interactions.
-- Optimize prediction accuracy.
 - Evaluate cross-validation loss behavior.
 
 Model settings:
 
 - Gaussian distribution
 - 10-fold cross-validation
-- Learning rate (shrinkage) = 0.01
 - Optimal tree selection using cross-validation error
 
 ---
@@ -171,6 +182,15 @@ Performance metrics were calculated using an independent testing dataset.
 ---
 
 ## Key Outputs
+
+### Explanatory Graphs
+
+- Historical Trend of Housing Supply
+- Historical Trend of Rental Marker
+
+### Explanatory Graphs
+
+- Ontario Housing Monitoring Dashboard: R Shiny
 
 ### Model Performance Comparison
 
@@ -205,6 +225,49 @@ Ontario municipal affordability maps were developed using:
 - Choropleth mapping techniques
 
 ---
+## Assumptions and Limitations
+
+### Geographic Coverage
+
+This analysis does not include all municipalities across Ontario. The study focuses primarily on municipalities located in Southern Ontario and selected municipalities from other regions where data were available and sufficiently complete for analysis. As a result, findings may not be fully representative of all Ontario municipalities.
+
+### Temporal Coverage
+
+The analysis was intended to use the most recent available data; however, data availability varied across datasets and municipalities. In several cases, complete and consistent data were not available for 2021 and later years. Consequently, 2020 data were used for many municipalities to maintain consistency and maximize geographic coverage.
+
+### Data Availability and Consistency
+
+Municipal-level datasets were obtained from multiple sources, including housing, demographic, income, and geographic datasets. Differences in data collection methods, reporting periods, and update frequencies may introduce inconsistencies across datasets.
+
+### Municipality Name Standardization
+
+A significant challenge during data integration involved inconsistencies in municipality naming conventions across data sources.
+
+For example:
+
+- CMHC datasets often used municipality names and market area definitions that differed from those used in Ontario municipal boundary datasets.
+- Some municipalities included administrative suffixes (e.g., Township, Municipality, County) while others did not.
+- Several municipalities were represented using alternative naming formats, abbreviations, or consolidated market areas.
+
+As a result, substantial manual cleaning and recoding were required to standardize municipality names before the attribute data could be successfully joined to municipal boundary shapefiles. Although extensive validation was performed, there remains a possibility of minor matching inaccuracies.
+
+### Modelling Assumptions
+
+The predictive models developed in this project assume that historical relationships between housing affordability and the selected demographic, income, immigration, household composition, and housing characteristics remain reasonably stable during the study period.
+
+Additionally:
+
+- Linear Regression assumes linear relationships between predictors and affordability.
+- Random Forest and Gradient Boosting models assume that historical patterns in the training data can be generalized to unseen municipalities within the study area.
+- Model results should be interpreted as predictive and exploratory rather than causal.
+
+### Spatial Analysis Limitations
+
+Municipal boundaries were obtained from publicly available geographic data sources and joined to affordability indicators using standardized municipality identifiers and names. Any remaining discrepancies between geographic and attribute datasets may affect spatial visualization results.
+
+### Interpretation of Results
+
+The findings presented in this project should be interpreted as an analytical assessment of housing affordability patterns rather than a definitive measure of housing conditions. Housing affordability is influenced by many factors that may not be fully captured in the available datasets, including local policy decisions, housing quality, labour market conditions, and other socioeconomic factors.
 
 ## Repository Structure
 
