@@ -211,20 +211,24 @@ Ontario municipal affordability maps were developed using:
 ```text
 ├── Data/
 │   ├── Raw/
+│   │   └── Shapefiles/
 │   └── Processed/
 │
 ├── Scripts/
-│   ├── 01_train_models.R
-│   ├── 02_evaluate_models.R
-│   ├── 03_compare_models.R
-│   ├── 04_feature_importance.R
-│   └── 05_spatial_mapping.R
+│   ├── 01_DataCleaning.R
+│   ├── 02_EDA_HistoricalSupplyTrends.R
+│   ├── 03_EDA_HistoricalRentalMarket.R
+│   ├── 04_EDA_Housing_Absorption.R
+│   ├── 05_DataCleaningForModeling.R
+│   ├── 06_EDA_AffordabilityRatio.R
+│   ├── 07_FeatureEngineering.R
+│   ├── 08_ModellingAndFeatureImportance.R
+│   ├── 09_AffordabilityMapping.R
+│   └── 10_HousingMonitoringDashboard.R
 │
 ├── outputs/
-│   ├── models/
-│   ├── metrics/
 │   ├── figures/
-│   └── maps/
+│   └── reports/
 │
 ├── README.md
 └── LICENSE
